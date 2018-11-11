@@ -2,4 +2,8 @@ FW
 RecursiveFW
 RecursiveFWAll
 FWTest
+test_storing
+test_storing_large
+LargeArr.bin
+VeryLargeArr.bin
 .vscode/
