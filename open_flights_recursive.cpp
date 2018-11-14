@@ -1,23 +1,21 @@
-#include <algorithm>
-#include <ctime>
 #include <iostream>
 using namespace std;
 
 typedef long long ll;
 
-const int number_of_nodes = 21048;
-const int number_of_edges = 21693;
 const ll L1_CACHE_SIZE = 32768;
+const int number_of_nodes = 3179;
+const int number_of_edges = 66067;
 
-long long INF = 25000000000; // 25 billion
-long long dFWR[number_of_nodes][number_of_nodes]; // for recursive algorithm
+double INF = 100000000.0; // 25 billion
+double d[number_of_nodes][number_of_nodes];
 
 /*
  * Size of (sub)matrix A: dm x dp
  * Size of (sub)matrix B: dm x dn
  * Size of (sub)matrix C: dn x dp
  * */
-void FWR_All(ll* A, ll* B, ll* C, const ll N,
+void FWR_All(double* A, double* B, double* C, const ll N,
         const int dm, const int dn, const int dp) {
     //get cache size
     //cout << dm << " " << dn << " " << dp << endl;
@@ -56,28 +54,28 @@ int main() {
   for (int i = 0; i < number_of_nodes; ++i) {
     for (int j = 0; j < number_of_nodes; ++j) {
       if (i == j) {
-        dFWR[i][j] = 0;
+        d[i][j] = 0.0;
       } else {
-        dFWR[i][j] = INF;
+        d[i][j] = INF;
       }
     }
   }
 
   cout << "FINISH INITIAL" << endl;
 
-  int label, u, v, ll_weight;
+  int u, v;
   double weight;
   for (int e = 0; e < number_of_edges; ++e) {
-    cin >> label >> u >> v >> weight;
-    ll_weight = (ll)weight*1000000;
-    dFWR[u][v] = ll_weight;
-    dFWR[v][u] = ll_weight;
+    // cout << "INPUT: " << e << endl;
+    cin >> u >> v >> weight;
+    d[u][v] = weight;
+    d[v][u] = weight;
   }
 
   cout << "FINISH INPUT" << endl;
-
+  
   clock_t begin_time = clock();
-  FWR_All((ll*)dFWR,(ll*)dFWR,(ll*)dFWR,number_of_nodes,number_of_nodes,number_of_nodes,number_of_nodes);
+  FWR_All((double*)d,(double*)d,(double*)d,number_of_nodes,number_of_nodes,number_of_nodes,number_of_nodes);
   clock_t end_time = clock();
   double elapsed_secs = double(end_time - begin_time) / CLOCKS_PER_SEC;
   cout << "Recursive Floyd-Warshall (Flexible version) takes " << elapsed_secs << " seconds!" << endl;
@@ -85,7 +83,7 @@ int main() {
   // output to a file for checking correctness
   for (int i = 0; i < number_of_nodes; i++) {
     for (int j = 0; j < number_of_nodes; j++) {
-      cout << dFWR[i][j];
+      cout << d[i][j];
       if (j != number_of_nodes - 1) cout << " ";
     }
     cout << endl;
