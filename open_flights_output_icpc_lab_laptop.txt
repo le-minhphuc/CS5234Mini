@@ -1,0 +1,44 @@
+root@len-acm-10:/home/acmadmin/CS5234Mini# g++ open_flights_johnson.cpp 
+root@len-acm-10:/home/acmadmin/CS5234Mini# perf stat -e cache-references -e cache-misses -e instructions ./a.out < open_flights_routes_clean.txt 
+FINISH INITIAL
+FINISH INPUT
+Johnson takes 13.0325 seconds!
+FINISH Johnson
+
+ Performance counter stats for './a.out':
+
+       382.390.258      cache-references                                            
+        62.287.118      cache-misses              #   16,289 % of all cache refs    
+   101.076.445.609      instructions                                                
+
+      13,174951049 seconds time elapsed
+
+root@len-acm-10:/home/acmadmin/CS5234Mini# g++ open_flights_classical.cpp 
+root@len-acm-10:/home/acmadmin/CS5234Mini# perf stat -e cache-references -e cache-misses -e instructions ./a.out < open_flights_routes_clean.txt 
+FINISH INITIAL
+FINISH INPUT
+Classical Floyd-Warshall takes 81.7114 seconds!
+
+ Performance counter stats for './a.out':
+
+     8.789.442.354      cache-references                                            
+     6.435.631.320      cache-misses              #   73,220 % of all cache refs    
+   901.093.781.246      instructions                                                
+
+      81,846233576 seconds time elapsed
+
+root@len-acm-10:/home/acmadmin/CS5234Mini# g++ open_flights_recursive.cpp 
+root@len-acm-10:/home/acmadmin/CS5234Mini# perf stat -e cache-references -e cache-misses -e instructions ./a.out < open_flights_routes_clean.txt 
+FINISH INITIAL
+FINISH INPUT
+Recursive Floyd-Warshall (Flexible version) takes 183.337 seconds!
+
+ Performance counter stats for './a.out':
+
+       575.888.685      cache-references                                            
+       126.906.060      cache-misses              #   22,037 % of all cache refs    
+ 1.975.885.360.024      instructions                                                
+
+     183,484232679 seconds time elapsed
+
+root@len-acm-10:/home/acmadmin/CS5234Mini#
